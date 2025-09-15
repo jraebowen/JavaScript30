@@ -150,7 +150,7 @@
 
       const duplicate = data.reduce((total, item) => {
         if (!total[item]) {
-          total[item] = 1;
+          total[item] = 0;
         }
         if (total[item]) {
           total[item] += 1;
