@@ -40,18 +40,26 @@
           .querySelector(".search")
           .value.toLowerCase();
 
-        const matches =
-          locations.filter((item) =>
-            item.city.toLowerCase().includes(inputValue)
-          ) || item.state.toLowerCase().includes(inputValue);
-        showResult(matches);
+        const matches = locations.filter(
+          (item) =>
+            item.city.toLowerCase().includes(inputValue) ||
+            item.state.toLowerCase().includes(inputValue)
+        );
+        showResult(matches, inputValue);
       }
 
-      function showResult(matches) {
+      function showResult(matches, inputValue) {
         list.innerHTML = "";
         matches.forEach((item) => {
           const listItem = document.createElement("li");
-          listItem.innerHTML = `<span> ${item.city}, ${item.state}</span> <span class="population">${item.population}</span>`;
+          const highlight = (text) => {
+            const regex = new RegExp(`(${inputValue})`, "gi");
+            return text.replace(regex, `<span class="hl">$1</span>`);
+          };
+
+          const cityHighlighted = highlight(item.city);
+          const stateHighlighted = highlight(item.state);
+          listItem.innerHTML = `<span> ${cityHighlighted}, ${stateHighlighted}</span> <span class="population">${item.population}</span>`;
           list.append(listItem);
         });
       }
