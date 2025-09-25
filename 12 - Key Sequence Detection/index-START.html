@@ -7,6 +7,20 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+      let pressed = [];
+      const secretKey = "jaimie";
+      window.addEventListener("keyup", (event) => {
+        pressed.push(event.key);
+        pressed.splice(
+          -secretKey.length - 1,
+          pressed.length - secretKey.length
+        );
+        if (pressed.join("").includes(secretKey)) {
+          console.log("secret revealed");
+          cornify_add();
+        }
+      });
+    </script>
   </body>
 </html>
